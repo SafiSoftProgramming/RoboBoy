@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ANDROID/PlayStore/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_find_bluetooth.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable-v24/btn_eff_balance_control_not.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_balanc_control.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_balance_control_not.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_btn_delete_in_dialog_.xml" value="0.321875" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_cancel_in_dialog.xml" value="0.321875" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_choose_control.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_con_cent.xml" value="0.21875" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_con_up.xml" value="0.24479166666666666" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_delete_recent_project.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_edit_recent_project.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_info_facebook.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_info_gmail.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_info_permissions.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_info_playstore.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_info_rate.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_info_youtube.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_key_control.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_key_control_not.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_mic_rec.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_min_rotation.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_new_project.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_ok_info.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_plus_rotation.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_recent_projects_list.xml" value="0.29739583333333336" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_record_voice_edit.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_voice_control.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_voice_control_not.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/drawable/btn_eff_voice_record_option.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_buttons_control.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_choose_to_do.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_control.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_edit_buttons_control.xml" value="0.2568265682656827" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_edit_key_control.xml" value="0.33" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_edit_rotation_control.xml" value="0.44331210191082804" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_edit_voice_control.xml" value="0.5" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_find_bluetooth.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_gyroscope_control.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_info.xml" value="0.22" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_new_project_choose.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_rotation_control.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_splash.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_start_new_project.xml" value="0.33" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_voice_control.xml" value="0.25" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/app_permissions_dialog.xml" value="0.3625" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/delete_dialog.xml" value="0.30572916666666666" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/recent_project_list.xml" value="0.3484375" />
+        <entry key="..\:/Users/mostz/OneDrive/Desktop/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/snack_bar_info.xml" value="0.3625" />
+        <entry key="..\:/programming/ANDROID/PlayStore/RoboBoy Project/RoboBoy Android/RoboBoy/app/src/main/res/layout/activity_splash.xml" value="0.3625" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

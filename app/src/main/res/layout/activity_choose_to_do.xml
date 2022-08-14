@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_app_bg"
+    tools:context=".ChooseToDoActivity">
+
+    <ImageView
+        android:id="@+id/safisoft_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:scaleType="fitStart"
+        android:src="@drawable/ic_roboboy_logo_text" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="250dp"
+            android:layout_height="250dp">
+
+            <ImageButton
+                android:id="@+id/btn_connect_control"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_eff_choose_control" >
+            </ImageButton>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:clickable="false"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="-20dp"
+                    android:layout_gravity="center"
+                    app:lottie_rawRes="@raw/ic_controler"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="false"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="-30dp"
+                    android:layout_marginBottom="30dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="Connect and Control your Project"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+        </FrameLayout>
+
+
+
+
+        <FrameLayout
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp">
+
+            <ImageButton
+                android:id="@+id/btn_info"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_eff_choose_control" >
+            </ImageButton>
+
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_gravity="bottom"
+                android:gravity="bottom"
+                android:clickable="false"
+                android:orientation="vertical">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="220dp"
+                    android:layout_height="220dp"
+                    android:layout_marginTop="-50dp"
+                    android:layout_gravity="center"
+                    app:lottie_rawRes="@raw/ic_robot_diy"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="false"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:text="More Info"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

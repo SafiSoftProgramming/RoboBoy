@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main"
+    android:orientation="horizontal">
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/btn_edit_Recent_Project"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/btn_eff_edit_recent_project"
+                android:scaleType="fitXY" />
+
+            <ImageButton
+                android:id="@+id/btn_delete_Recent_Project"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_eff_delete_recent_project"
+                android:scaleType="fitXY" />
+
+        </LinearLayout>
+
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_recent_project_list"
+                android:layout_width="260dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_eff_recent_projects_list"/>
+
+
+        <LinearLayout
+            android:layout_width="260dp"
+            android:layout_height="100dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtv_Recent_Project_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="40dp"
+                android:gravity="start"
+                android:clickable="false"
+                android:maxLength="20"
+                android:text="Recent_Project_name"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtv_Recent_Project_Type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="start"
+                android:clickable="false"
+                android:text="Recent_Project_Type"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtv_Recent_Project_Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:gravity="start"
+                android:clickable="false"
+                android:maxLength="50"
+                android:text="Recent_Project_Description"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+
+        </LinearLayout>
+
+        </FrameLayout>
+
+
+        <ImageView
+            android:id="@+id/imgv_Recent_Project_type"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="-30dp"
+            android:elevation="1dp"
+            android:scaleType="fitStart"/>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

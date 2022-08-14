@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:orientation="vertical"
+android:focusable="true"
+android:focusableInTouchMode="true"
+android:background="@drawable/ic_app_bg"
+tools:context=".EditRotationControlActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/adView"
+        android:layout_marginBottom="0dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/safisoft_logo"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="-20dp"
+                    android:elevation="1dp"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_roboboy_logo_text" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-5dp"
+                    android:gravity="end"
+                    android:orientation="horizontal">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:elevation="1dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/ic_edit_rotation_control_robot" />
+
+                    <LinearLayout
+                        android:layout_width="150dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/ic_edit_project_crc_top_bg"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:maxLines="3"
+                            android:text="Edit"
+                            android:textColor="@android:color/white"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:maxLines="3"
+                            android:text="Project"
+                            android:textColor="@android:color/white"
+                            android:textSize="40sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="-135dp"
+                    android:layout_marginEnd="180dp"
+                    android:elevation="1dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/safisof"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_balanc_control" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="Rotation Control"
+                        android:textColor="@android:color/white"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/txtv_project_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-30dp"
+                android:gravity="center"
+                android:text="Project Name"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtv_project_description"
+                android:layout_width="300dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/ic_edittext_command_big_border_bg"
+                android:gravity="center"
+                android:paddingStart="15dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="2dp"
+                android:text="Project Name "
+                android:textAlignment="center"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+
+            <TextView
+                android:layout_width="165dp"
+                android:layout_height="40dp"
+                android:layout_gravity="start"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_start_side_lable_bg"
+                android:gravity="center"
+                android:text="Rotation Degree"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+
+            <RelativeLayout
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp">
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentStart="true"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_min" />
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_plus" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-60dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:scaleType="fitStart"
+                    android:src="@drawable/ic_rotation_chooseing_circle" />
+
+
+                <LinearLayout
+                    android:id="@+id/lay_phone_rotation_pointer"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="-303dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:rotation="10">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="-40dp"
+                        android:rotation="180"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/ic_down_arr" />
+
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-20dp"
+                        android:elevation="1dp"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"
+                        app:lottie_rawRes="@raw/ic_phone_rotation_set" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="-300dp"
+                android:orientation="horizontal">
+
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="300dp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_20"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="120dp"
+                        android:layout_marginTop="32dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_40"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="85dp"
+                        android:layout_marginTop="-13dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_60"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="58dp"
+                        android:layout_marginTop="-4dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_80"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="8dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_100"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="33dp"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_120"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="10dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_140"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="58dp"
+                        android:layout_marginTop="7dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_160"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="85dp"
+                        android:layout_marginTop="0dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_min_180"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginStart="120dp"
+                        android:layout_marginTop="-13dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="300dp"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_20"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="32dp"
+                        android:layout_marginEnd="120dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_40"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="-13dp"
+                        android:layout_marginEnd="85dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_60"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="-4dp"
+                        android:layout_marginEnd="58dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_80"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="40dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_100"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="33dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_120"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="40dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_140"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginEnd="58dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_160"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="85dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+                    <ImageView
+                        android:id="@+id/ic_done_edit_plus_180"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="-13dp"
+                        android:layout_marginEnd="120dp"
+                        android:scaleType="fitStart"
+                        android:src="@drawable/ic_done_editing_rotation"
+                        android:visibility="invisible" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="320dp"
+                android:layout_height="wrap_content">
+
+
+                <ImageButton
+                    android:id="@+id/btn_rotation_min"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/btn_eff_min_rotation"
+                    android:scaleType="fitXY" />
+
+                <TextView
+                    android:id="@+id/txtv_current_degree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="0° to 20°"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/btn_rotation_plus"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/btn_eff_plus_rotation"
+                    android:scaleType="fitXY" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:gravity="start"
+                    android:text="Rotation Degree Command"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/edtxt_rotation_degree_command"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/ic_edittext_command_biger_border_bg"
+                    android:maxLength="70"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:paddingBottom="5dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+
+            <FrameLayout
+                android:layout_width="300dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp">
+
+                <ImageButton
+                    android:id="@+id/btn_save_Project"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:background="@drawable/btn_eff_new_project"
+                    android:scaleType="fitXY"></ImageButton>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="false"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:text="Open Project"
+                        android:textAlignment="center"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </FrameLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-5637187199850424/8760777955">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>
