@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="0dp"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+
+                <ImageButton
+                    android:id="@+id/btn_ok_info"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginBottom="-49dp"
+                    android:background="@drawable/ic_btn_exit_more_new"
+                    android:elevation="1dp"
+                    android:scaleType="fitXY" />
+
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="310dp"
+                    android:layout_height="175dp"
+                    android:elevation="1dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="270dp"
+                    android:src="@drawable/ic_vedio_gif" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:elevation="1dp"
+                    android:layout_marginTop="25dp"
+                    android:orientation="vertical">
+
+
+                    <ImageButton
+                        android:id="@+id/btn_watch_the_video"
+                        android:layout_width="180dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="end"
+                        android:background="@drawable/btn_eff_watch_the_video"
+                        android:scaleType="fitXY" />
+
+                    <ImageButton
+                        android:id="@+id/btn_dowmload_fc"
+                        android:layout_width="180dp"
+                        android:layout_height="45dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/btn_eff_download_fc"
+                        android:scaleType="fitXY" />
+
+                </LinearLayout>
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="90dp"
+                    android:layout_marginEnd="12dp"
+                    android:elevation="1dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/ic_comming_up_dashboard" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="210dp"
+                    android:elevation="1dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/btn_info_rate"
+                        android:layout_width="300dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_eff_info_rate"
+                        android:scaleType="fitXY" />
+
+                    <ImageButton
+                        android:id="@+id/btn_info_youtube"
+                        android:layout_width="300dp"
+                        android:layout_height="165dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_eff_info_youtube"
+                        android:scaleType="fitXY" />
+
+                    <ImageButton
+                        android:id="@+id/btn_info_facebook"
+                        android:layout_width="300dp"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_eff_info_facebook"
+                        android:scaleType="fitXY" />
+
+                    <ImageButton
+                        android:id="@+id/btn_info_playstore"
+                        android:layout_width="300dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_eff_info_playstore"
+                        android:scaleType="fitXY" />
+
+                    <ImageButton
+                        android:id="@+id/btn_info_gmail"
+                        android:layout_width="300dp"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_eff_info_gmail"
+                        android:scaleType="fitXY" />
+
+
+                </LinearLayout>
+
+
+                <ImageView
+                    android:id="@+id/safisoft_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="51dp"
+                    android:layout_marginStart="7dp"
+                    android:scaleType="fitStart"
+                    android:elevation="1dp"
+                    android:src="@drawable/ic_safisoft_logo_yallow" />
+
+
+                <ImageView
+                    android:id="@+id/imgv_connect_led"
+                    android:layout_width="330dp"
+                    android:layout_height="2100dp"
+                    android:layout_marginTop="-2090dp"
+                    android:background="@drawable/ic_more_new_bg" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</LinearLayout>

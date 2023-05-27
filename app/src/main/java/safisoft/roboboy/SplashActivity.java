@@ -32,11 +32,6 @@ public class SplashActivity extends AppCompatActivity {
     };
 
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +107,9 @@ public class SplashActivity extends AppCompatActivity {
         new CountDownTimer(4000, 1000) {
             public void onTick(long millisUntilFinished) { }
             public void onFinish() {
-                Intent intent = new Intent(SplashActivity.this, ChooseToDoActivity.class);
+              //  Intent intent = new Intent(SplashActivity.this, ChooseToDoActivity.class);
+                Intent intent = new Intent(SplashActivity.this, NewProjectChooseActivity.class);
+                intent.putExtra("AD_STATE","false" );
                 startActivity(intent);
                 finish();
             }

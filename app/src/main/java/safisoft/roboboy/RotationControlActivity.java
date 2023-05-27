@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -28,10 +27,9 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import safisoft.roboboy.R;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class RotationControlActivity extends AppCompatActivity {
@@ -39,22 +37,15 @@ public class RotationControlActivity extends AppCompatActivity {
 
     SensorManager sensorManager;
     Sensor sensor;
-
-    String bluetooth_name ;
-    String bluetooth_mac ;
+    String BLUETOOTH_NAME;
     String MODULE_MAC ;
     public final static int REQUEST_ENABLE_BT = 1;
-    UUID MY_UUID ;
-    BluetoothAdapter bta;
-    BluetoothSocket mmSocket;
-    BluetoothDevice mmDevice;
-    ConnectedThread btt = null;
-    public Handler mHandler;
     DbConnction db ;
     Cursor c = null;
     String PROJECT_NAME ;
     TextView txtv_bluetooth_name ;
     TextView txtv_bluetooth_mac ;
+    TextView txtv_connecting_lable ;
     ImageButton btn_turn_off ;
     TextView txtv_command_history ;
 
@@ -80,8 +71,25 @@ public class RotationControlActivity extends AppCompatActivity {
 
 
     ImageView imgv_ic_rotation ;
+
+    ImageView imgv_connect_led ;
     SensorEventListener rvListener ;
 
+    ImageButton btn_clean_screen ;
+    ImageButton btn_scroll_screen ;
+
+    public Handler mHandler;
+    private final int STATUS_CHECK_INTERVAL = 500;
+    private final Handler handlerStatusCheck = new Handler();
+
+    boolean State_Zero = true ;
+    boolean State_One = true ;
+    boolean State_Tow = true ;
+    boolean First_lunch_Zero = true ;
+    boolean First_lunch_One = true ;
+    boolean First_lunch_Tow = true ;
+
+    boolean first_lunch_chick = true ;
 
 
 
@@ -101,22 +109,10 @@ public class RotationControlActivity extends AppCompatActivity {
 
 
         PROJECT_NAME = getIntent().getStringExtra("PROJECT_NAME");
+        BLUETOOTH_NAME = getIntent().getStringExtra("bluetooth_name");
+        MODULE_MAC = getIntent().getStringExtra("bluetooth_mac");
 
-        bluetooth_name = getIntent().getStringExtra("bluetooth_name");
-        bluetooth_mac = getIntent().getStringExtra("bluetooth_mac");
 
-        MODULE_MAC = bluetooth_mac ;
-        MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-
-        bta = BluetoothAdapter.getDefaultAdapter();
-
-        //if bluetooth is not enabled then create Intent for user to turn it on
-        if(!bta.isEnabled()){
-            Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBTIntent, REQUEST_ENABLE_BT);
-        }else{
-            initiateBluetoothProcess();
-        }
 
         db = new DbConnction(RotationControlActivity.this);
         try {
@@ -130,7 +126,7 @@ public class RotationControlActivity extends AppCompatActivity {
             throw sqle;
         }
 
-
+        initiateBluetoothProcess();
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
@@ -145,12 +141,18 @@ public class RotationControlActivity extends AppCompatActivity {
         imgv_ic_rotation = findViewById(R.id.imgv_ic_rotation);
         txtv_bluetooth_name =findViewById(R.id.txtv_bluetooth_name);
         txtv_bluetooth_mac =findViewById(R.id.txtv_bluetooth_mac);
+        txtv_connecting_lable = findViewById(R.id.txtv_connecting_lable);
         btn_turn_off = findViewById(R.id.btn_turn_off);
         txtv_command_history = findViewById(R.id.txtv_command_history);
 
+        imgv_connect_led =findViewById(R.id.imgv_connect_led);
 
-        txtv_bluetooth_name.setText(bluetooth_name);
-        txtv_bluetooth_mac.setText(bluetooth_mac);
+
+        txtv_bluetooth_name.setText(BLUETOOTH_NAME);
+        txtv_bluetooth_mac.setText(MODULE_MAC);
+
+        btn_clean_screen =findViewById(R.id.btn_clean_screen);
+        btn_scroll_screen =findViewById(R.id.btn_scroll_screen);
 
 
         c = db.Row_Query("Project_Buttons_Control", "project_name", PROJECT_NAME);
@@ -160,7 +162,7 @@ public class RotationControlActivity extends AppCompatActivity {
         btn_turn_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetConnection();
+                EndConnection();
                 Intent intent = new Intent(RotationControlActivity.this, NewProjectChooseActivity.class);
                 intent.putExtra("AD_STATE","true" );
                 startActivity(intent);
@@ -168,6 +170,22 @@ public class RotationControlActivity extends AppCompatActivity {
             }
         });
 
+
+        btn_clean_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtv_command_history.setText("");
+            }
+        });
+
+        btn_scroll_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String txtv = txtv_command_history.getText().toString();
+                txtv_command_history.setText("");
+                txtv_command_history.append(txtv);
+            }
+        });
 
 
         rvListener = new SensorEventListener() {
@@ -361,117 +379,117 @@ public class RotationControlActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ENABLE_BT){
-            initiateBluetoothProcess();
-        }
-    }
 
 
 
     public void initiateBluetoothProcess(){
+        ((ApplicationEx)getApplication()).mBtEngine.SET_MAC(MODULE_MAC); //back angel
+        ((ApplicationEx)getApplication()).Start_Stop_Manual_control(0);
 
-        if(bta.isEnabled()){
-            //attempt to connect to bluetooth module
-            BluetoothSocket tmp = null;
-            mmDevice = bta.getRemoteDevice(MODULE_MAC);
+        mHandler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                String txt = (String)msg.obj;
+                StringBuilder sb = new StringBuilder();
+                sb.append(txt);                                      // append string
+                String sbprint = sb.substring(0, sb.length());            // extract string
+                sb.delete(0, sb.length());
+                final String finalSbprint = sb.append(sbprint).toString();
+                System.out.println(finalSbprint);
+                txtv_command_history.append(finalSbprint);
 
-            //create socket
-            try {
-                tmp = mmDevice.createRfcommSocketToServiceRecord(MY_UUID);
-                mmSocket = tmp;
-                mmSocket.connect();
-                Log.i("[BLUETOOTH]","Connected to: "+mmDevice.getName());
-            }catch(IOException e){
-                try{mmSocket.close();}catch(IOException c){return;}
             }
+        };
+        ((ApplicationEx)getApplication()).mBtEngine.SET_HANDLER(mHandler);
 
-            Log.i("[BLUETOOTH]", "Creating handler");
-            mHandler = new Handler(Looper.getMainLooper()){
-                @Override
-                public void handleMessage(Message msg) {
 
-                    super.handleMessage(msg);
-                    if(msg.what == ConnectedThread.RESPONSE_MESSAGE){
-                        String txt = (String)msg.obj;
-
-                        StringBuilder sb = new StringBuilder();
-                        sb.append(txt);                                      // append string
-                        String sbprint = sb.substring(0, sb.length());            // extract string
-                        sb.delete(0, sb.length());
-                        final String finalSbprint = sb.append(sbprint).toString();
-                        txtv_command_history.append(finalSbprint);
-
+        handlerStatusCheck.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(txtv_command_history.getLineCount() > 200){
+                    txtv_command_history.setText("");
+                    txtv_command_history.append("> "+"Auto Screen Cleaner"+"\n");
+                    System.out.println("Auto Screen Cleaner");
+                }
+                if(((ApplicationEx)getApplication()).mBtEngine.getState() == 0 ){
+                    if(State_Zero) {
+                        txtv_connecting_lable.setText("Connection Lost");
+                        txtv_command_history.append( "> "+"Connection Lost"+"\n");
+                        imgv_connect_led.setBackgroundResource(R.drawable.ic_red_dot_not_connected);
+                        if(!First_lunch_Zero) {
+                            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this, "Connection Lost");
+                        }
+                        State_Zero = false ;
+                        State_One = true ;
+                        State_Tow = true ;
+                        First_lunch_Zero = false ;
                     }
                 }
-            };
+                if(((ApplicationEx)getApplication()).mBtEngine.getState() == 1 ){
+                    if(State_One) {
+                        txtv_connecting_lable.setText("Trying to Connect");
+                        txtv_command_history.append( "> "+"Trying to Connect"+"\n");
+                        imgv_connect_led.setBackgroundResource(R.drawable.ic_red_dot_not_connected);
+                        if(!First_lunch_One) {
+                            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this, "Trying to Connect");
+                        }
+                        State_Zero = true ;
+                        State_One = false ;
+                        State_Tow = true ;
+                        First_lunch_One = false ;
+                    }
+                }
+                if(((ApplicationEx)getApplication()).mBtEngine.getState() == 2 ){
+                    if(State_Tow) {
+                        txtv_connecting_lable.setText("Connected");
+                        txtv_command_history.append( "> "+"Connected"+"\n");
+                        imgv_connect_led.setBackgroundResource(R.drawable.ic_green_dot_connected);
+                        if(!First_lunch_Tow) {
+                            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this, "Connected");
+                        }
+                        State_Zero = true ;
+                        State_One = true ;
+                        State_Tow = false ;
+                        First_lunch_Tow = false ;
+                        first_lunch_chick = false ;
+                    }
+                }
+                handlerStatusCheck.postDelayed(this, STATUS_CHECK_INTERVAL);
+            }
+        }, STATUS_CHECK_INTERVAL);
 
-            Log.i("[BLUETOOTH]", "Creating and running Thread");
-            btt = new ConnectedThread(mmSocket,mHandler);
-            btt.start();
-
-
-        }
     }
 
-    private void resetConnection() {
-        if (mmSocket != null) {
-            try {mmSocket.close();} catch (Exception e) {}
-            mmSocket = null;
-
-
-        }
-    }
 
     private void SEND_COMMAND(String Commend){
 
-        try {
-
-            if(!isConnected(mmDevice)){
-
-                SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-                snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this,"Bluetooth Connection Lost!");
-
-            }
-
-            if (mmSocket.isConnected() && btt != null) {
-                btt.write(Commend.getBytes());
-
-                txtv_command_history.append( "> "+Commend+"\n");
-            } else {
-                SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-                snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this,"Something Went Wrong");
-            }
-
+        ((ApplicationEx)getApplication()).Start_Stop_Manual_control(0);
+        if(((ApplicationEx)getApplication()).writeBt(Commend.getBytes(StandardCharsets.UTF_8))){
+            txtv_command_history.append( "> "+Commend+"\n");
         }
-        catch (Exception E){
-
-            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this,"Something Went Wrong");
-
+        else {
+            if(!first_lunch_chick) {
+                SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), RotationControlActivity.this, "Something Went Wrong");
+            }
         }
-
 
     }
 
-    public static boolean isConnected(BluetoothDevice device) {
-        try {
-            Method m = device.getClass().getMethod("isConnected", (Class[]) null);
-            boolean connected = (boolean) m.invoke(device, (Object[]) null);
-            return connected;
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
+
+    private void EndConnection() {
+        ((ApplicationEx)getApplication()).Start_Stop_Manual_control(1);
+        handlerStatusCheck.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacksAndMessages(null);
     }
-
-
 
     @Override
     public void onBackPressed() {
-        resetConnection();
+        EndConnection();
         Intent intent = new Intent(RotationControlActivity.this, NewProjectChooseActivity.class);
         intent.putExtra("AD_STATE","true" );
         startActivity(intent);

@@ -1,8 +1,6 @@
 package safisoft.roboboy;
 
 import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -11,11 +9,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,50 +23,53 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import safisoft.roboboy.R;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.UUID;
 
 public class VoiceControlActivity extends AppCompatActivity {
-
-
-
-    String bluetooth_name ;
-    String bluetooth_mac ;
-    String MODULE_MAC ;
+    String BLUETOOTH_NAME;
+    String MODULE_MAC;
     public final static int REQUEST_ENABLE_BT = 1;
-    UUID MY_UUID ;
-    BluetoothAdapter bta;
-    BluetoothSocket mmSocket;
-    BluetoothDevice mmDevice;
-    ConnectedThread btt = null;
-    public Handler mHandler;
-    DbConnction db ;
+    UUID MY_UUID;
+    DbConnction db;
     Cursor c = null;
-    String PROJECT_NAME ;
-    TextView txtv_bluetooth_name ;
-    TextView txtv_bluetooth_mac ;
-    ImageButton btn_turn_off ;
-    TextView txtv_command_history ;
-    TextView txtv_voice_command ;
-    ImageButton btn_save_voice_1 ;
-    ImageButton btn_save_voice_2 ;
-    ImageButton btn_save_voice_3 ;
-    ImageButton btn_save_voice_4 ;
-    ImageButton btn_save_voice_5 ;
-    ImageButton btn_save_voice_6 ;
-    ImageButton btn_save_voice_7 ;
-    ImageButton btn_save_voice_8 ;
-    ImageButton btn_save_voice_9 ;
-    ImageButton IMG_BUTTON_ANIMATE ;
+    String PROJECT_NAME;
+    TextView txtv_bluetooth_name;
+    TextView txtv_bluetooth_mac;
+    TextView txtv_connecting_lable ;
+    ImageButton btn_turn_off;
+    TextView txtv_command_history;
+    TextView txtv_voice_command;
+    ImageButton btn_save_voice_1;
+    ImageButton btn_save_voice_2;
+    ImageButton btn_save_voice_3;
+    ImageButton btn_save_voice_4;
+    ImageButton btn_save_voice_5;
+    ImageButton btn_save_voice_6;
+    ImageButton btn_save_voice_7;
+    ImageButton btn_save_voice_8;
+    ImageButton btn_save_voice_9;
+    ImageButton IMG_BUTTON_ANIMATE;
+    public Handler mHandler;
+    private final int STATUS_CHECK_INTERVAL = 500;
+    private final Handler handlerStatusCheck = new Handler();
+
+    ImageView imgv_connect_led ;
+
+    ImageButton btn_clean_screen ;
+    ImageButton btn_scroll_screen ;
 
 
-    String message = "";
-
+    boolean State_Zero = true;
+    boolean State_One = true;
+    boolean State_Tow = true;
+    boolean First_lunch_Zero = true;
+    boolean First_lunch_One = true;
+    boolean First_lunch_Tow = true;
 
 
     @Override
@@ -88,21 +89,10 @@ public class VoiceControlActivity extends AppCompatActivity {
 
         PROJECT_NAME = getIntent().getStringExtra("PROJECT_NAME");
 
-        bluetooth_name = getIntent().getStringExtra("bluetooth_name");
-        bluetooth_mac = getIntent().getStringExtra("bluetooth_mac");
+        BLUETOOTH_NAME = getIntent().getStringExtra("bluetooth_name");
+        MODULE_MAC = getIntent().getStringExtra("bluetooth_mac");
 
-        MODULE_MAC = bluetooth_mac ;
-        MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-        bta = BluetoothAdapter.getDefaultAdapter();
-
-        //if bluetooth is not enabled then create Intent for user to turn it on
-        if(!bta.isEnabled()){
-            Intent enableBTIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBTIntent, REQUEST_ENABLE_BT);
-        }else{
-            initiateBluetoothProcess();
-        }
 
         db = new DbConnction(VoiceControlActivity.this);
         try {
@@ -117,14 +107,14 @@ public class VoiceControlActivity extends AppCompatActivity {
         }
 
 
-
-
+        initiateBluetoothProcess();
 
 
         ImageButton btnv = findViewById(R.id.btn_v);
 
-        txtv_bluetooth_name =findViewById(R.id.txtv_bluetooth_name);
-        txtv_bluetooth_mac =findViewById(R.id.txtv_bluetooth_mac);
+        txtv_bluetooth_name = findViewById(R.id.txtv_bluetooth_name);
+        txtv_bluetooth_mac = findViewById(R.id.txtv_bluetooth_mac);
+        txtv_connecting_lable = findViewById(R.id.txtv_connecting_lable);
         btn_turn_off = findViewById(R.id.btn_turn_off);
         txtv_command_history = findViewById(R.id.txtv_command_history);
         txtv_voice_command = findViewById(R.id.txtv_voice_command);
@@ -137,10 +127,14 @@ public class VoiceControlActivity extends AppCompatActivity {
         btn_save_voice_7 = findViewById(R.id.btn_save_voice_7);
         btn_save_voice_8 = findViewById(R.id.btn_save_voice_8);
         btn_save_voice_9 = findViewById(R.id.btn_save_voice_9);
+        imgv_connect_led =findViewById(R.id.imgv_connect_led);
+
+        btn_clean_screen =findViewById(R.id.btn_clean_screen);
+        btn_scroll_screen =findViewById(R.id.btn_scroll_screen);
 
 
-        txtv_bluetooth_name.setText(bluetooth_name);
-        txtv_bluetooth_mac.setText(bluetooth_mac);
+        txtv_bluetooth_name.setText(BLUETOOTH_NAME);
+        txtv_bluetooth_mac.setText(MODULE_MAC);
 
 
         c = db.Row_Query("Project_Buttons_Control", "project_name", PROJECT_NAME);
@@ -150,11 +144,28 @@ public class VoiceControlActivity extends AppCompatActivity {
         btn_turn_off.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetConnection();
+                EndConnection();
                 Intent intent = new Intent(VoiceControlActivity.this, NewProjectChooseActivity.class);
-                intent.putExtra("AD_STATE","true" );
+                intent.putExtra("AD_STATE", "true");
                 startActivity(intent);
                 finish();
+            }
+        });
+
+
+        btn_clean_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtv_command_history.setText("");
+            }
+        });
+
+        btn_scroll_screen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String txtv = txtv_command_history.getText().toString();
+                txtv_command_history.setText("");
+                txtv_command_history.append(txtv);
             }
         });
 
@@ -168,74 +179,71 @@ public class VoiceControlActivity extends AppCompatActivity {
         });
 
 
-
         btn_save_voice_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_1" , "com_1");
+                HANDLE_COMMAND("voice_1", "com_1");
             }
         });
 
         btn_save_voice_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_2" ,"com_2");
+                HANDLE_COMMAND("voice_2", "com_2");
             }
         });
 
         btn_save_voice_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_3" ,"com_3");
+                HANDLE_COMMAND("voice_3", "com_3");
             }
         });
 
         btn_save_voice_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_4" , "com_4");
+                HANDLE_COMMAND("voice_4", "com_4");
             }
         });
 
         btn_save_voice_5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_5" , "com_5");
+                HANDLE_COMMAND("voice_5", "com_5");
             }
         });
 
         btn_save_voice_6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_6" , "com_6");
+                HANDLE_COMMAND("voice_6", "com_6");
             }
         });
 
         btn_save_voice_7.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_7" , "com_7");
+                HANDLE_COMMAND("voice_7", "com_7");
             }
         });
 
         btn_save_voice_8.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_8" ,"com_8");
+                HANDLE_COMMAND("voice_8", "com_8");
             }
         });
 
         btn_save_voice_9.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HANDLE_COMMAND("voice_9" , "com_9");
+                HANDLE_COMMAND("voice_9", "com_9");
             }
         });
 
 
-
-        }
-
+    }
 
 
     public void getSpeechInput() {
@@ -249,7 +257,7 @@ public class VoiceControlActivity extends AppCompatActivity {
         } else {
 
             SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this,"Your Device Don't Support Speech Input");
+            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this, "Your Device Don't Support Speech Input");
 
         }
     }
@@ -259,9 +267,6 @@ public class VoiceControlActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ENABLE_BT){
-            initiateBluetoothProcess();
-        }
 
         switch (requestCode) {
             case 10:
@@ -269,85 +274,83 @@ public class VoiceControlActivity extends AppCompatActivity {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
                     String COMMAND_VOICE = "";
-                    String COMMAND_SEND = "" ;
+                    String COMMAND_SEND = "";
 
 
-                  //  Toast.makeText(this, result.get(0), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(this, result.get(0), Toast.LENGTH_SHORT).show();
 
 
                     c = db.Row_Query("Project_Voice_Control", "project_name", PROJECT_NAME);
                     c.moveToFirst();
 
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_1")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_1")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_1")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_1 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_1")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_1"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_1"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_1;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_2")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_2")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_2")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_2 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_2")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_2"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_2"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_2;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_3")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_3")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_3")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_3 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_3")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_3"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_3"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_3;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_4")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_4")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_4")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_4 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_4")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_4"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_4"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_4;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_5")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_5")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_5")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_5 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_5")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_5"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_5"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_5;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_6")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_6")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_6")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_6 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_6")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_6"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_6"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_6;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_7")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_7")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_7")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_7 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_7")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_7"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_7"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_7;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_8")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_8")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_8")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_8 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_8")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_8"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_8"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_8;
                     }
 
-                    if(c.getString(c.getColumnIndexOrThrow("voice_9")).equals(result.get(0))){
-                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_9")) ;
-                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_9")) ;
-                        IMG_BUTTON_ANIMATE = btn_save_voice_9 ;
+                    if (c.getString(c.getColumnIndexOrThrow("voice_9")).equals(result.get(0))) {
+                        COMMAND_VOICE = c.getString(c.getColumnIndexOrThrow("voice_9"));
+                        COMMAND_SEND = c.getString(c.getColumnIndexOrThrow("com_9"));
+                        IMG_BUTTON_ANIMATE = btn_save_voice_9;
                     }
 
 
-                    if(!COMMAND_SEND.equals("Empty") && COMMAND_VOICE.equals(result.get(0))){
+                    if (!COMMAND_SEND.equals("Empty") && COMMAND_VOICE.equals(result.get(0))) {
                         SEND_COMMAND(COMMAND_SEND);
                         ANIMATE_BUTTONS();
-                    }
-                    else if (COMMAND_SEND.equals("Empty")){
+                    } else if (COMMAND_SEND.equals("Empty")) {
 
                         SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-                        snackBarInfoControl.SnackBarInfoControlView(VoiceControlActivity.this, findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this,"Empty Command");
+                        snackBarInfoControl.SnackBarInfoControlView(VoiceControlActivity.this, findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this, "Empty Command");
 
-                    }
-                    else if (!COMMAND_VOICE.equals(result.get(0))){
+                    } else if (!COMMAND_VOICE.equals(result.get(0))) {
 
                         SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-                        snackBarInfoControl.SnackBarInfoControlView(VoiceControlActivity.this, findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this,"No Voice Command Match");
+                        snackBarInfoControl.SnackBarInfoControlView(VoiceControlActivity.this, findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this, "No Voice Command Match");
 
                     }
 
@@ -355,100 +358,109 @@ public class VoiceControlActivity extends AppCompatActivity {
                     txtv_voice_command.setText(result.get(0));
 
 
-
-
                 }
                 break;
         }
     }
 
-
-
     public void initiateBluetoothProcess(){
+        ((ApplicationEx)getApplication()).mBtEngine.SET_MAC(MODULE_MAC); //back angel
+        ((ApplicationEx)getApplication()).Start_Stop_Manual_control(0);
 
+        mHandler = new Handler(Looper.getMainLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                String txt = (String)msg.obj;
+                StringBuilder sb = new StringBuilder();
+                sb.append(txt);                                      // append string
+                String sbprint = sb.substring(0, sb.length());            // extract string
+                sb.delete(0, sb.length());
+                final String finalSbprint = sb.append(sbprint).toString();
+                System.out.println(finalSbprint);
+                txtv_command_history.append(finalSbprint);
 
-
-        if(bta.isEnabled()){
-            //attempt to connect to bluetooth module
-            BluetoothSocket tmp = null;
-            mmDevice = bta.getRemoteDevice(MODULE_MAC);
-
-            //create socket
-            try {
-                tmp = mmDevice.createRfcommSocketToServiceRecord(MY_UUID);
-                mmSocket = tmp;
-                mmSocket.connect();
-                Log.i("[BLUETOOTH]","Connected to: "+mmDevice.getName());
-            }catch(IOException e){
-                try{mmSocket.close();}catch(IOException c){return;}
             }
+        };
+        ((ApplicationEx)getApplication()).mBtEngine.SET_HANDLER(mHandler);
 
-            Log.i("[BLUETOOTH]", "Creating handler");
-            mHandler = new Handler(Looper.getMainLooper()){
-                @Override
-                public void handleMessage(Message msg) {
 
-                  super.handleMessage(msg);
-                  if(msg.what == ConnectedThread.RESPONSE_MESSAGE){
-                      String txt = (String)msg.obj;
-
-                      StringBuilder sb = new StringBuilder();
-                      sb.append(txt);                                      // append string
-                      String sbprint = sb.substring(0, sb.length());            // extract string
-                      sb.delete(0, sb.length());
-                      final String finalSbprint = sb.append(sbprint).toString();
-                      txtv_command_history.append(finalSbprint);
-                  }
+        handlerStatusCheck.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(txtv_command_history.getLineCount() > 500){
+                    txtv_command_history.setText("");
+                    txtv_command_history.append("> "+"Auto Screen Cleaner"+"\n");
+                    System.out.println("Auto Screen Cleaner");
                 }
-            };
+                if(((ApplicationEx)getApplication()).mBtEngine.getState() == 0 ){
+                    if(State_Zero) {
+                        txtv_connecting_lable.setText("Connection Lost");
+                        txtv_command_history.append( "> "+"Connection Lost"+"\n");
+                        imgv_connect_led.setBackgroundResource(R.drawable.ic_red_dot_not_connected);
+                        if(!First_lunch_Zero) {
+                            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this, "Connection Lost");
+                        }
+                        State_Zero = false ;
+                        State_One = true ;
+                        State_Tow = true ;
+                        First_lunch_Zero = false ;
+                    }
+                }
+                if(((ApplicationEx)getApplication()).mBtEngine.getState() == 1 ){
+                    if(State_One) {
+                        txtv_connecting_lable.setText("Trying to Connect");
+                        txtv_command_history.append( "> "+"Trying to Connect"+"\n");
+                        imgv_connect_led.setBackgroundResource(R.drawable.ic_red_dot_not_connected);
+                        if(!First_lunch_One) {
+                            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this, "Trying to Connect");
+                        }
+                        State_Zero = true ;
+                        State_One = false ;
+                        State_Tow = true ;
+                        First_lunch_One = false ;
+                    }
+                }
+                if(((ApplicationEx)getApplication()).mBtEngine.getState() == 2 ){
+                    if(State_Tow) {
+                        txtv_connecting_lable.setText("Connected");
+                        txtv_command_history.append( "> "+"Connected"+"\n");
+                        imgv_connect_led.setBackgroundResource(R.drawable.ic_green_dot_connected);
+                        if(!First_lunch_Tow) {
+                            SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+                            snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this, "Connected");
+                        }
+                        State_Zero = true ;
+                        State_One = true ;
+                        State_Tow = false ;
+                        First_lunch_Tow = false ;
+                    }
+                }
+                handlerStatusCheck.postDelayed(this, STATUS_CHECK_INTERVAL);
+            }
+        }, STATUS_CHECK_INTERVAL);
 
-
-            Log.i("[BLUETOOTH]", "Creating and running Thread");
-            btt = new ConnectedThread(mmSocket,mHandler);
-            btt.start();
-
-        }
     }
 
 
-
-    private void resetConnection() {
-        if (mmSocket != null) {
-            try {mmSocket.close();} catch (Exception e) {}
-            mmSocket = null;
-
-
-        }
+    private void EndConnection() {
+        ((ApplicationEx)getApplication()).Start_Stop_Manual_control(1);
+        handlerStatusCheck.removeCallbacksAndMessages(null);
+        mHandler.removeCallbacksAndMessages(null);
     }
 
     private void SEND_COMMAND(String Commend){
 
-        try {
-
-            if(!isConnected(mmDevice)){
-
-                SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-                snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this,"Bluetooth Connection Lost!");
-
-            }
-
-            if (mmSocket.isConnected() && btt != null) {
-                btt.write(Commend.getBytes());
-
-                txtv_command_history.append( "> "+Commend+"\n");
-            } else {
-                SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
-                snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this,"Something Went Wrong");
-            }
-
+        ((ApplicationEx)getApplication()).Start_Stop_Manual_control(0);
+        if(((ApplicationEx)getApplication()).writeBt(Commend.getBytes(StandardCharsets.UTF_8))){
+            txtv_command_history.append( "> "+Commend+"\n");
         }
-        catch (Exception E){
-
+        else {
             SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
             snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(), findViewById(android.R.id.content).getRootView(), VoiceControlActivity.this,"Something Went Wrong");
-
         }
-
 
     }
 
@@ -483,15 +495,7 @@ public class VoiceControlActivity extends AppCompatActivity {
 
     }
 
-    public static boolean isConnected(BluetoothDevice device) {
-        try {
-            Method m = device.getClass().getMethod("isConnected", (Class[]) null);
-            boolean connected = (boolean) m.invoke(device, (Object[]) null);
-            return connected;
-        } catch (Exception e) {
-            throw new IllegalStateException(e);
-        }
-    }
+
 
     private void ANIMATE_BUTTONS(){
         Animation anim = new AlphaAnimation(0.0f, 1.0f);
@@ -504,7 +508,7 @@ public class VoiceControlActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        resetConnection();
+        EndConnection();
         Intent intent = new Intent(VoiceControlActivity.this, NewProjectChooseActivity.class);
         intent.putExtra("AD_STATE","true" );
         startActivity(intent);

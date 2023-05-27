@@ -107,7 +107,9 @@ public class FindBluetoothActivity extends AppCompatActivity {
                 }
                 if(PROJECT_CONTROL_TYPE.equals("Rotation Control")){
                     CONTROL_ACTIVITY = RotationControlActivity.class ;
-
+                }
+                if(PROJECT_CONTROL_TYPE.equals("Serial Monitor")){
+                    CONTROL_ACTIVITY = SerialMonitorControlActivity.class ;
                 }
 
                 Intent intent = new Intent(FindBluetoothActivity.this, CONTROL_ACTIVITY);

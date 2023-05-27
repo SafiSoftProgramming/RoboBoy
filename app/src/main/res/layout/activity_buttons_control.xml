@@ -21,29 +21,24 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="320dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:orientation="vertical">
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_width="245dp"
+            android:layout_height="75dp"
             android:layout_marginBottom="-2dp"
+            android:background="@drawable/ic_turnoff_bluname_bg"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="210dp"
-                android:layout_height="75dp"
-                android:scaleType="fitStart"
-                android:src="@drawable/ic_turnoff_bluname_bg" />
 
             <LinearLayout
-                android:layout_width="210dp"
-                android:layout_height="70dp"
-                android:orientation="horizontal"
-                android:layout_marginStart="-210dp">
+                android:layout_width="245dp"
+                android:layout_height="75dp"
+                android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btn_turn_off"
@@ -55,7 +50,7 @@
 
                 <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="55dp"
-                    android:layout_height="70dp"
+                    android:layout_height="75dp"
                     android:layout_marginStart="-55dp"
                     app:lottie_rawRes="@raw/ic_btn_turn_bluetooth_off"
                     app:lottie_autoPlay="true"
@@ -67,9 +62,10 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txtv_connecting_lable"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Connected"
+                        android:text="Trying to Connect"
                         android:textStyle="bold"
                         android:textColor="@color/main"
                         android:layout_marginTop="6dp"
@@ -99,19 +95,31 @@
                 </LinearLayout>
 
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="20dp">
+
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        app:lottie_rawRes="@raw/ic_bluetooth_is_connected"
+                        app:lottie_autoPlay="true"
+                        app:lottie_loop="true"/>
+
+                    <ImageView
+                        android:id="@+id/imgv_connect_led"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="-20dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/ic_red_dot_not_connected" />
+                </LinearLayout>
+
 
 
             </LinearLayout>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-               android:layout_marginStart="-87dp"
-                android:layout_marginTop="-4dp"
-                app:lottie_rawRes="@raw/ic_bluetooth_is_connected"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"/>
-
 
         </LinearLayout>
 
@@ -120,16 +128,17 @@
 
 
     <LinearLayout
-        android:layout_width="230dp"
-        android:layout_height="240dp"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
         android:background="@drawable/ic_but_up_down_bg"
-        android:layout_marginBottom="5dp"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:orientation="vertical">
 
 
         <LinearLayout
-            android:layout_width="240dp"
-            android:layout_height="240dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
@@ -199,39 +208,56 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-25dp"
+            android:layout_marginTop="20dp"
+            android:elevation="1dp"
+            android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btn_clean_screen"
+            android:layout_marginBottom="5dp"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:scaleType="fitXY"
+            android:background="@drawable/btn_eff_clean_screen"/>
+
+            <ImageButton
+                android:id="@+id/btn_scroll_screen"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:scaleType="fitXY"
+                android:background="@drawable/btn_eff_scroll_screen"/>
+
+        </LinearLayout>
     <LinearLayout
-        android:layout_width="330dp"
-        android:layout_height="148dp"
+        android:layout_width="360dp"
+        android:layout_height="320dp"
         android:layout_gravity="end"
-        android:gravity="end"
-        android:layout_marginBottom="-2dp"
+        android:gravity="top"
         android:background="@drawable/ic_send_messege_bg"
         android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="148dp"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="115dp"
                 android:layout_gravity="end"
-                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="end"
                 android:orientation="horizontal">
 
                 <EditText
                     android:id="@+id/txtv_command_history"
-                    android:layout_width="315dp"
-                    android:layout_height="80dp"
+                    android:layout_width="330dp"
+                    android:layout_height="115dp"
                     android:editable="false"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:layout_marginEnd="7dp"
                     android:textSize="12sp"
                     android:textColor="@color/white"
@@ -240,473 +266,460 @@
             </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="end"
-            android:gravity="end"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/edittxt_commend_to_send"
-                android:layout_width="225dp"
-                android:layout_height="40dp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:layout_marginEnd="5dp"
-                android:textSize="12sp"
-                android:textColor="@color/white"
-                android:background="@drawable/ic_txtv_send_mess_bg"/>
-
-            <ImageButton
-                android:id="@+id/btn_send_text_commend"
-                android:layout_width="90dp"
-                android:layout_height="40dp"
-                android:scaleType="fitXY"
-                android:background="@drawable/btn_eff_send_mess"/>
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="90dp"
-                android:layout_height="35dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="-90dp"
-                app:lottie_rawRes="@raw/ic_btn_send_messege_ico"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"/>
-        </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="5dp"
-        android:gravity="center"
-        android:background="@drawable/ic_btn_extra_bg"
-        android:orientation="horizontal">
-
-
-
-
-        <LinearLayout
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="350dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:gravity="end"
+                android:layout_gravity="end"
                 android:orientation="horizontal">
 
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="vertical">
 
-                    <ImageButton
-                        android:id="@+id/btn_commend1"
-                        android:layout_width="100dp"
-                        android:layout_height="65dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/btn_eff_extra"/>
 
                     <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
                         android:layout_gravity="center"
-                        android:gravity="center">
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/txtv_command_name1"
-                        android:layout_width="wrap_content"
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/btn_commend1"
+                                android:layout_width="100dp"
+                                android:layout_height="65dp"
+                                android:scaleType="fitXY"
+                                android:background="@drawable/btn_eff_extra"/>
+
+                            <LinearLayout
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/txtv_command_name1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Extra 1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_1_down"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_1_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/btn_commend2"
+                                android:layout_width="100dp"
+                                android:layout_height="65dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:scaleType="fitXY"
+                                android:background="@drawable/btn_eff_extra"/>
+
+                            <LinearLayout
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/txtv_command_name2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Extra 1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_2_down"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_2_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/btn_commend3"
+                                android:layout_width="100dp"
+                                android:layout_height="65dp"
+                                android:scaleType="fitXY"
+                                android:background="@drawable/btn_eff_extra"/>
+
+                            <LinearLayout
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/txtv_command_name3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Extra 1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_3_down"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_3_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Extra 1"
-                        android:clickable="false"
-                        android:textAlignment="center"
-                        android:textColor="@color/white"
-                        android:textSize="12sp"
-                        android:textStyle="bold"/>
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/txtv_command_1_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
 
-                        <TextView
-                            android:id="@+id/txtv_command_1_up"
+                        <FrameLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/btn_commend4"
+                                android:layout_width="100dp"
+                                android:layout_height="65dp"
+                                android:scaleType="fitXY"
+                                android:background="@drawable/btn_eff_extra"/>
+
+                            <LinearLayout
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/txtv_command_name4"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Extra 1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_4_down"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_4_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/btn_commend5"
+                                android:layout_width="100dp"
+                                android:layout_height="65dp"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:scaleType="fitXY"
+                                android:background="@drawable/btn_eff_extra"/>
+
+                            <LinearLayout
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/txtv_command_name5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Extra 1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_5_down"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_5_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <ImageButton
+                                android:id="@+id/btn_commend6"
+                                android:layout_width="100dp"
+                                android:layout_height="65dp"
+                                android:scaleType="fitXY"
+                                android:background="@drawable/btn_eff_extra"/>
+
+                            <LinearLayout
+                                android:layout_width="70dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="5dp"
+                                android:layout_gravity="center"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/txtv_command_name6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Extra 1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_6_down"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                                <TextView
+                                    android:id="@+id/txtv_command_6_up"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="start"
+                                    android:text="commend1"
+                                    android:clickable="false"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/main"
+                                    android:textSize="12sp"
+                                    android:maxLength="8"
+                                    android:textStyle="normal"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
 
                     </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@+id/btn_commend2"
-                        android:layout_width="100dp"
-                        android:layout_height="65dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/btn_eff_extra"/>
 
                     <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center">
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_gravity="end"
+                        android:gravity="end"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/txtv_command_name2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Extra 1"
-                            android:clickable="false"
-                            android:textAlignment="center"
+                        <EditText
+                            android:id="@+id/edittxt_commend_to_send"
+                            android:layout_width="242dp"
+                            android:layout_height="40dp"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:textSize="12sp"
                             android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:background="@drawable/ic_txtv_send_mess_bg"/>
 
-                        <TextView
-                            android:id="@+id/txtv_command_2_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
+                        <ImageButton
+                            android:id="@+id/btn_send_text_commend"
+                            android:layout_width="90dp"
+                            android:layout_height="40dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/btn_eff_send_mess"/>
 
-                        <TextView
-                            android:id="@+id/txtv_command_2_up"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="90dp"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="-90dp"
+                            app:lottie_rawRes="@raw/ic_btn_send_messege_ico"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
                     </LinearLayout>
 
-                </FrameLayout>
+                </LinearLayout>
 
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@+id/btn_commend3"
-                        android:layout_width="100dp"
-                        android:layout_height="65dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/btn_eff_extra"/>
-
-                    <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/txtv_command_name3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Extra 1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_3_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_3_up"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
 
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@+id/btn_commend4"
-                        android:layout_width="100dp"
-                        android:layout_height="65dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/btn_eff_extra"/>
-
-                    <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/txtv_command_name4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Extra 1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_4_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_4_up"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@+id/btn_commend5"
-                        android:layout_width="100dp"
-                        android:layout_height="65dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/btn_eff_extra"/>
-
-                    <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/txtv_command_name5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Extra 1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_5_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_5_up"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageButton
-                        android:id="@+id/btn_commend6"
-                        android:layout_width="100dp"
-                        android:layout_height="65dp"
-                        android:scaleType="fitXY"
-                        android:background="@drawable/btn_eff_extra"/>
-
-                    <LinearLayout
-                        android:layout_width="70dp"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:layout_marginBottom="5dp"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-
-                        <TextView
-                            android:id="@+id/txtv_command_name6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Extra 1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/white"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_6_down"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                        <TextView
-                            android:id="@+id/txtv_command_6_up"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="start"
-                            android:text="commend1"
-                            android:clickable="false"
-                            android:textAlignment="center"
-                            android:textColor="@color/main"
-                            android:textSize="12sp"
-                            android:maxLength="8"
-                            android:textStyle="normal"/>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-
-
-
-
-
-
-
 
 
     </LinearLayout>
+
+
+
 
 
 

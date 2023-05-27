@@ -14,10 +14,8 @@ import safisoft.roboboy.R;
 
 public class AppPermissionsDialog extends Dialog implements
         View.OnClickListener {
-
     public ImageButton btn_ok;
     public Activity c;
-
 
     public AppPermissionsDialog(@NonNull Activity a) {
         super(a);
@@ -32,8 +30,6 @@ public class AppPermissionsDialog extends Dialog implements
 
         btn_ok = findViewById(R.id.btn_ok_info);
         btn_ok.setOnClickListener(this);
-
-
     }
 
     @Override

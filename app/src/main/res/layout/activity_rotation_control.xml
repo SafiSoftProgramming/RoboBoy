@@ -26,45 +26,39 @@
                 android:id="@+id/safisoft_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginBottom="5dp"
                 android:scaleType="fitStart"
                 android:src="@drawable/ic_roboboy_logo_text" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:layout_width="245dp"
+                android:layout_height="75dp"
                 android:layout_gravity="start"
-                android:layout_marginTop="20dp"
+                android:background="@drawable/ic_turnoff_bluname_bg"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="210dp"
-                    android:layout_height="75dp"
-                    android:scaleType="fitStart"
-                    android:src="@drawable/ic_turnoff_bluname_bg" />
 
                 <LinearLayout
-                    android:layout_width="210dp"
-                    android:layout_height="70dp"
-                    android:layout_marginStart="-210dp"
+                    android:layout_width="245dp"
+                    android:layout_height="75dp"
                     android:orientation="horizontal">
 
                     <ImageButton
                         android:id="@+id/btn_turn_off"
                         android:layout_width="55dp"
-                        android:layout_height="75dp"
+                        android:layout_height="73dp"
                         android:layout_marginTop="1dp"
-                        android:background="@drawable/btn_eff_turn_bluetooth_off"
-                        android:scaleType="fitXY" />
+                        android:scaleType="fitXY"
+                        android:background="@drawable/btn_eff_turn_bluetooth_off"/>
 
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_width="55dp"
-                        android:layout_height="70dp"
+                        android:layout_height="75dp"
                         android:layout_marginStart="-55dp"
+                        app:lottie_rawRes="@raw/ic_btn_turn_bluetooth_off"
                         app:lottie_autoPlay="true"
-                        app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/ic_btn_turn_bluetooth_off" />
+                        app:lottie_loop="true"/>
 
                     <LinearLayout
                         android:layout_width="125dp"
@@ -72,91 +66,122 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/txtv_connecting_lable"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="6dp"
-                            android:text="Connected"
+                            android:text="Trying to Connect"
+                            android:textStyle="bold"
                             android:textColor="@color/main"
-                            android:textStyle="bold" />
+                            android:layout_marginTop="6dp"
+                            android:layout_marginStart="5dp"/>
 
                         <TextView
                             android:id="@+id/txtv_bluetooth_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginTop="2dp"
-                            android:maxLength="17"
                             android:text="98:D3:31:F9:78:0B"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:maxLength="17"
+                            android:layout_marginTop="2dp"
+                            android:layout_marginStart="5dp"/>
 
                         <TextView
                             android:id="@+id/txtv_bluetooth_mac"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="5dp"
-                            android:maxLength="17"
                             android:text="98:D3:31:F9:78:0B"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:maxLength="17"
+                            android:layout_marginStart="5dp"/>
 
                     </LinearLayout>
 
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginStart="20dp">
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="45dp"
+                            android:layout_height="45dp"
+                            app:lottie_rawRes="@raw/ic_bluetooth_is_connected"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"/>
+
+                        <ImageView
+                            android:id="@+id/imgv_connect_led"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:layout_marginStart="-20dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/ic_red_dot_not_connected" />
+                    </LinearLayout>
+
+
+
                 </LinearLayout>
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="-87dp"
-                    android:layout_marginTop="-4dp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"
-                    app:lottie_rawRes="@raw/ic_bluetooth_is_connected" />
-
 
             </LinearLayout>
 
 
+
+
             <LinearLayout
-                android:layout_width="250dp"
-                android:layout_height="100dp"
-                android:layout_gravity="start"
-                android:gravity="start"
+                android:layout_width="360dp"
+                android:layout_height="480dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:background="@drawable/ic_rotation_palet_bg"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="250dp"
-                    android:layout_height="100dp"
-                    android:scaleType="fitStart"
-                    android:src="@drawable/ic_send_messege_rotation_bg" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="-2dp"
+                        android:layout_marginTop="5dp"
+                        android:elevation="1dp"
+                        android:orientation="vertical">
+
+                        <ImageButton
+                            android:id="@+id/btn_clean_screen"
+                            android:layout_marginBottom="5dp"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/btn_eff_clean_screen"/>
+
+                        <ImageButton
+                            android:id="@+id/btn_scroll_screen"
+                            android:layout_width="50dp"
+                            android:layout_height="40dp"
+                            android:scaleType="fitXY"
+                            android:background="@drawable/btn_eff_scroll_screen"/>
+
+                    </LinearLayout>
 
                 <EditText
                     android:id="@+id/txtv_command_history"
-                    android:layout_width="230dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="-90dp"
-                    android:layout_marginEnd="5dp"
+                    android:layout_width="280dp"
+                    android:layout_height="100dp"
                     android:background="@drawable/ic_txtv_messege_sended"
                     android:editable="false"
-                    android:padding="10dp"
+                    android:padding="5dp"
+                    android:layout_marginBottom="20dp"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
-                android:gravity="center"
-                android:orientation="vertical">
+                </LinearLayout>
 
                 <ImageView
                     android:id="@+id/imgv_ic_rotation"
@@ -192,7 +217,7 @@
                         android:elevation="1dp"
                         app:lottie_autoPlay="true"
                         app:lottie_loop="true"
-                        app:lottie_rawRes="@raw/ic_phone_rotation_set" />
+                        app:lottie_rawRes="@raw/ic_phone_rotation_set_new" />
 
                 </LinearLayout>
 

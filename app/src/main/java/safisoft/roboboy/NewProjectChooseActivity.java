@@ -7,6 +7,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -14,14 +17,18 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.ads.AdInspectorError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.OnAdInspectorClosedListener;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -29,10 +36,7 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
-import com.google.android.play.core.review.testing.FakeReviewManager;
-import com.google.android.play.core.tasks.OnCompleteListener;
 import com.google.android.play.core.tasks.Task;
-import safisoft.roboboy.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,6 +50,9 @@ public class NewProjectChooseActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     Recent_Projects_Adapter recentProjectsAdapter;
     ImageButton btn_new_project ;
+
+    ImageButton btn_Serial_Monitor ;
+    ImageButton btn_more_new ;
     LinearLayout lay_no_data ;
 
 
@@ -60,65 +67,14 @@ public class NewProjectChooseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project_choose);
 
-        AD_STATE = getIntent().getStringExtra("AD_STATE");
-
-
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-            }
-        });
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-
-
-        AdRequest adRequest_interstitial = new AdRequest.Builder().build();
-
-        InterstitialAd.load(this,"ca-app-pub-5637187199850424/9384235892", adRequest_interstitial,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        Log.i(TAG, "onAdLoaded");
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.i(TAG, loadAdError.getMessage());
-                        mInterstitialAd = null;
-                    }
-                });
-
-        if(AD_STATE.equals("true")) {
-
-
-            int min = 3*1000;
-            new CountDownTimer(min, 1000) {
-                public void onTick(long millisUntilFinished) { }
-                public void onFinish() {
-
-                    if (mInterstitialAd != null) {
-                        mInterstitialAd.show(NewProjectChooseActivity.this);
-                    } else {
-                        Log.d("TAG", "The interstitial ad wasn't ready yet.");
-                    }
-
-                }
-            }.start();
-
-
-        }
-
+          Initialize_ads();   
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         btn_new_project = findViewById(R.id.btn_new_project);
+        btn_Serial_Monitor = findViewById(R.id.btn_Serial_Monitor);
+        btn_more_new = findViewById(R.id.btn_more_new);
         lay_no_data = findViewById(R.id.lay_no_data);
 
         db = new DbConnction(NewProjectChooseActivity.this);
@@ -141,12 +97,40 @@ public class NewProjectChooseActivity extends AppCompatActivity {
                 Intent intent = new Intent(NewProjectChooseActivity.this, StartNewProjectActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        btn_Serial_Monitor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NewProjectChooseActivity.this, FindBluetoothActivity.class);
+                intent.putExtra("PROJECT_NAME","Serial Monitor");
+                intent.putExtra("PROJECT_CONTROL_TYPE","Serial Monitor");
+                startActivity(intent);
+            }
+        });
+
+        btn_more_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                MoreNewDialog moreNewDialog = new MoreNewDialog(NewProjectChooseActivity.this);
+                moreNewDialog.show();
+                moreNewDialog.setCanceledOnTouchOutside(false);
+                moreNewDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+
+                moreNewDialog.btn_ok.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        moreNewDialog.dismiss();
+                    }
+                });
 
 
 
             }
         });
-
 
 
 
@@ -175,9 +159,15 @@ public class NewProjectChooseActivity extends AppCompatActivity {
         }
 
 
+      // new CountDownTimer(1000, 1000) {
+      //     public void onTick(long millisUntilFinished) { }
+      //     public void onFinish() {
+      //         Initialize_ads();
+      //     }
+      // }.start();
+
 
         if(PROJECT_COUNT() > 0){
-
             int min = 3*1000;
             new CountDownTimer(min, 1000) {
                 public void onTick(long millisUntilFinished) { }
@@ -191,13 +181,6 @@ public class NewProjectChooseActivity extends AppCompatActivity {
 
     }
 
-
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(NewProjectChooseActivity.this, ChooseToDoActivity.class);
-        startActivity(intent);
-        finish();
-    }
 
 
     private int PROJECT_COUNT(){
@@ -239,6 +222,70 @@ public class NewProjectChooseActivity extends AppCompatActivity {
     }
 
 
+    private void Initialize_ads(){
+
+        AD_STATE = getIntent().getStringExtra("AD_STATE");
+        AdView mAdView = findViewById(R.id.adView);
+       MobileAds.initialize(this, new OnInitializationCompleteListener() {
+           @Override
+           public void onInitializationComplete(InitializationStatus initializationStatus) {
+           } });
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        AdRequest adRequest_interstitial = new AdRequest.Builder().build();
+        InterstitialAd.load(this,"ca-app-pub-5637187199850424/9384235892", adRequest_interstitial,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i(TAG, "onAdLoaded");
+                    }
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i(TAG, loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+
+        if(AD_STATE.equals("true")) {
+            int min = 3*1000;
+            new CountDownTimer(min, 1000) {
+                public void onTick(long millisUntilFinished) { }
+                public void onFinish() {
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd.show(NewProjectChooseActivity.this);
+                    } else {
+                        new CountDownTimer(4000, 1000) {
+                            public void onTick(long millisUntilFinished) { }
+                            public void onFinish() {
+                                if (mInterstitialAd != null) {
+                                    mInterstitialAd.show(NewProjectChooseActivity.this);
+                                }
+                            }
+                        }.start();
+                    }
+                }}.start();
+        }
+    }
+
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        SnackBarInfoControl snackBarInfoControl = new SnackBarInfoControl();
+        snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(),findViewById(android.R.id.content).getRootView(),NewProjectChooseActivity.this,"Press Twice to Exit");
+
+    }
 
 
 }
