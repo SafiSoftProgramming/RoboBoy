@@ -48,11 +48,15 @@ public class SerialMonitorControlActivity extends AppCompatActivity {
     boolean First_lunch_One = true;
     boolean First_lunch_Tow = true;
 
+    InterstitialAd_Class aClass ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serial_monitor_control);
+
+        aClass = new InterstitialAd_Class();
+        aClass.Initialize_ads(SerialMonitorControlActivity.this);
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
@@ -91,10 +95,8 @@ public class SerialMonitorControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EndConnection();
-                Intent intent = new Intent(SerialMonitorControlActivity.this, NewProjectChooseActivity.class);
-                intent.putExtra("AD_STATE", "true");
-                startActivity(intent);
-                finish();
+                aClass.Initialize_ads(SerialMonitorControlActivity.this);
+                aClass.Start_Interstial_AD(SerialMonitorControlActivity.this);
             }
         });
 

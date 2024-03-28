@@ -116,12 +116,11 @@ public class MoreNewDialog extends Dialog implements
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(Intent.ACTION_SENDTO);
-                intent.setData(Uri.parse("mailto:SafiSoft.programmer@gmail.com")); // only email apps should handle this
-                intent.putExtra(Intent.EXTRA_SUBJECT, "QR Scanner Duck User Feedback");
-                if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-                    getContext().startActivity(intent);
-                }
+                Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                        "mailto","SafiSoft.programmer@gmail.com", null));
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
+                getContext().startActivity(Intent.createChooser(emailIntent, "Send email..."));
 
             }
         });

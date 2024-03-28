@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
@@ -103,7 +104,9 @@ public class EditButtonsControlActivity extends AppCompatActivity {
     TextView COM_DOWN ;
     TextView COM_UP ;
 
+
     private InterstitialAd mInterstitialAd;
+    private AdView mAdView;
 
 
     @Override
@@ -120,16 +123,15 @@ public class EditButtonsControlActivity extends AppCompatActivity {
         AD_STATE = getIntent().getStringExtra("AD_STATE");
 
 
-
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        AdView mAdView = findViewById(R.id.adView);
+
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
 
 
         AdRequest adRequest_interstitial = new AdRequest.Builder().build();

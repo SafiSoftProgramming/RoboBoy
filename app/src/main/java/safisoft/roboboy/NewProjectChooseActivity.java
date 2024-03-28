@@ -2,7 +2,12 @@ package safisoft.roboboy;
 
 import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
+import static com.google.android.play.core.install.model.ActivityResult.RESULT_IN_APP_UPDATE_FAILED;
+import static com.google.android.play.core.install.model.AppUpdateType.FLEXIBLE;
+
+import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
@@ -23,6 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdInspectorError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -33,9 +39,20 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
+import com.google.android.play.core.install.model.ActivityResult;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.android.play.core.tasks.Task;
 
 import java.io.IOException;
@@ -60,7 +77,14 @@ public class NewProjectChooseActivity extends AppCompatActivity {
     ReviewInfo reviewInfo = null;
     private InterstitialAd mInterstitialAd;
 
-    String AD_STATE ;
+
+    private AdView mAdView;
+
+
+    //in app update
+    private AppUpdateManager appUpdateManager;
+    private static final int MY_REQUEST_CODE = 17326;
+    private static final int IMMEDIATE_APP_UPDATE_REQ_CODE = 124 ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,7 +156,13 @@ public class NewProjectChooseActivity extends AppCompatActivity {
             }
         });
 
-
+        appUpdateManager = AppUpdateManagerFactory.create(getApplicationContext());
+        new CountDownTimer(4000, 1000) {
+            public void onTick(long millisUntilFinished) { }
+            public void onFinish() {
+                checkUpdate();
+            }
+        }.start();
 
 
         Recent_Projects_List = new ArrayList<>();
@@ -173,6 +203,7 @@ public class NewProjectChooseActivity extends AppCompatActivity {
                 public void onTick(long millisUntilFinished) { }
                 public void onFinish() {
                     StartInAppReview();
+
                 }
             }.start();
         }
@@ -224,52 +255,18 @@ public class NewProjectChooseActivity extends AppCompatActivity {
 
     private void Initialize_ads(){
 
-        AD_STATE = getIntent().getStringExtra("AD_STATE");
-        AdView mAdView = findViewById(R.id.adView);
-       MobileAds.initialize(this, new OnInitializationCompleteListener() {
-           @Override
-           public void onInitializationComplete(InitializationStatus initializationStatus) {
-           } });
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        AdRequest adRequest_interstitial = new AdRequest.Builder().build();
-        InterstitialAd.load(this,"ca-app-pub-5637187199850424/9384235892", adRequest_interstitial,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        Log.i(TAG, "onAdLoaded");
-                    }
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.i(TAG, loadAdError.getMessage());
-                        mInterstitialAd = null;
-                    }
-                });
 
-        if(AD_STATE.equals("true")) {
-            int min = 3*1000;
-            new CountDownTimer(min, 1000) {
-                public void onTick(long millisUntilFinished) { }
-                public void onFinish() {
-                    if (mInterstitialAd != null) {
-                        mInterstitialAd.show(NewProjectChooseActivity.this);
-                    } else {
-                        new CountDownTimer(4000, 1000) {
-                            public void onTick(long millisUntilFinished) { }
-                            public void onFinish() {
-                                if (mInterstitialAd != null) {
-                                    mInterstitialAd.show(NewProjectChooseActivity.this);
-                                }
-                            }
-                        }.start();
-                    }
-                }}.start();
-        }
+
     }
 
 
@@ -286,6 +283,33 @@ public class NewProjectChooseActivity extends AppCompatActivity {
         snackBarInfoControl.SnackBarInfoControlView(getApplicationContext(),findViewById(android.R.id.content).getRootView(),NewProjectChooseActivity.this,"Press Twice to Exit");
 
     }
+
+
+
+
+    //in app update
+    private void checkUpdate() {
+
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                startUpdateFlow(appUpdateInfo);
+            } else if  (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS){
+                startUpdateFlow(appUpdateInfo);
+            }
+        });
+    }
+
+    private void startUpdateFlow(AppUpdateInfo appUpdateInfo) {
+        try {
+            appUpdateManager.startUpdateFlowForResult(appUpdateInfo, AppUpdateType.IMMEDIATE, this, NewProjectChooseActivity.IMMEDIATE_APP_UPDATE_REQ_CODE);
+        } catch (IntentSender.SendIntentException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }

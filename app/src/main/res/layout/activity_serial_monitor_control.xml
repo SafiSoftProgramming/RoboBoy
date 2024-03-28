@@ -90,6 +90,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="2dp"
                     android:maxLength="17"
+                    android:maxLines="1"
                     android:text="98:D3:31:F9:78:0B"
                     android:textColor="@color/white"
                     android:textStyle="bold" />
@@ -190,6 +191,8 @@
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginEnd="5dp"
+            android:selectAllOnFocus="true"
+            android:textColorHighlight="@color/teal_200"
             android:layout_marginStart="10dp"
 
             android:background="@drawable/ic_txtv_send_mess_bg"

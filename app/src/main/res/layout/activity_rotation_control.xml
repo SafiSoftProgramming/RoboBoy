@@ -10,10 +10,22 @@
     android:orientation="vertical"
     tools:context=".RotationControlActivity">
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-5637187199850424/5747084881">
+    </com.google.android.gms.ads.AdView>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/adView"
+        android:layout_below="@+id/adView"
         android:layout_marginBottom="0dp">
 
         <LinearLayout
@@ -26,6 +38,7 @@
                 android:id="@+id/safisoft_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="15dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginStart="5dp"
                 android:layout_marginBottom="5dp"
                 android:scaleType="fitStart"
@@ -83,6 +96,7 @@
                             android:textColor="@color/white"
                             android:textStyle="bold"
                             android:maxLength="17"
+                            android:maxLines="1"
                             android:layout_marginTop="2dp"
                             android:layout_marginStart="5dp"/>
 
@@ -228,16 +242,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-5637187199850424/5747084881">
-    </com.google.android.gms.ads.AdView>
 
 
 </RelativeLayout>

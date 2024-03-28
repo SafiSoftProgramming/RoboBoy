@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -91,19 +92,26 @@ public class RotationControlActivity extends AppCompatActivity {
 
     boolean first_lunch_chick = true ;
 
+    private AdView mAdView;
 
+    InterstitialAd_Class aClass ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rotation_control);
 
+
+        aClass = new InterstitialAd_Class();
+        aClass.Initialize_ads(RotationControlActivity.this);
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        AdView mAdView = findViewById(R.id.adView);
+
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -163,10 +171,8 @@ public class RotationControlActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EndConnection();
-                Intent intent = new Intent(RotationControlActivity.this, NewProjectChooseActivity.class);
-                intent.putExtra("AD_STATE","true" );
-                startActivity(intent);
-                finish();
+                aClass.Initialize_ads(RotationControlActivity.this);
+                aClass.Start_Interstial_AD(RotationControlActivity.this);
             }
         });
 

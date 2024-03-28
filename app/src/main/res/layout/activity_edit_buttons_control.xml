@@ -12,11 +12,22 @@
     android:background="@drawable/ic_app_bg"
     tools:context=".EditButtonsControlActivity">
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-5637187199850424/5932763621">
+    </com.google.android.gms.ads.AdView>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/adView"
+        android:layout_below="@+id/adView"
         android:layout_marginBottom="0dp">
 
 
@@ -351,6 +362,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="5dp"
+                        android:selectAllOnFocus="true"
+                        android:textColorHighlight="@color/teal_200"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
@@ -388,6 +401,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="5dp"
+                        android:selectAllOnFocus="true"
+                        android:textColorHighlight="@color/teal_200"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
@@ -425,6 +440,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="5dp"
+                        android:selectAllOnFocus="true"
+                        android:textColorHighlight="@color/teal_200"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
@@ -973,6 +990,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="5dp"
+                        android:selectAllOnFocus="true"
+                        android:textColorHighlight="@color/teal_200"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
@@ -1010,6 +1029,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="5dp"
+                        android:selectAllOnFocus="true"
+                        android:textColorHighlight="@color/teal_200"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
@@ -1048,6 +1069,8 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:paddingBottom="5dp"
+                        android:selectAllOnFocus="true"
+                        android:textColorHighlight="@color/teal_200"
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
 
@@ -1097,16 +1120,7 @@
 
     </ScrollView>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-5637187199850424/5932763621">
-    </com.google.android.gms.ads.AdView>
+
 
 
 </RelativeLayout>

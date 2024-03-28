@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -29,7 +30,7 @@ public class StartNewProjectActivity extends AppCompatActivity {
     ImageButton btn_new_Project_next_step ;
     Cursor c = null;
     DbConnction db ;
-
+    private AdView mAdView;
 
     String PROJECT_TYPE = "Button Control" ;  // Project types ( Button Control,Voice Control,Gyroscope Control) Default is Button Control
     
@@ -44,7 +45,8 @@ public class StartNewProjectActivity extends AppCompatActivity {
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
-        AdView mAdView = findViewById(R.id.adView);
+
+        mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 

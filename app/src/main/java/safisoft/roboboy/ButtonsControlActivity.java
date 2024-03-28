@@ -83,13 +83,16 @@ public class ButtonsControlActivity extends AppCompatActivity {
     boolean First_lunch_One = true ;
     boolean First_lunch_Tow = true ;
 
-
+    InterstitialAd_Class aClass ;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buttons_control);
+
+        aClass = new InterstitialAd_Class();
+        aClass.Initialize_ads(ButtonsControlActivity.this);
 
         PROJECT_NAME = getIntent().getStringExtra("PROJECT_NAME");
         BLUETOOTH_NAME = getIntent().getStringExtra("bluetooth_name");
@@ -346,10 +349,8 @@ public class ButtonsControlActivity extends AppCompatActivity {
 
 
                    EndConnection();
-                   Intent intent = new Intent(ButtonsControlActivity.this, NewProjectChooseActivity.class);
-                   intent.putExtra("AD_STATE","true" );
-                   startActivity(intent);
-                   finish();
+                aClass.Initialize_ads(ButtonsControlActivity.this);
+                aClass.Start_Interstial_AD(ButtonsControlActivity.this);
             }
         });
 
